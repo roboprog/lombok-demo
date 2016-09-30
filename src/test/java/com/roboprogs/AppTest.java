@@ -28,6 +28,21 @@ public class AppTest
         return new TestSuite( AppTest.class );
     }
 
+    /** try out the bean that Lombok generated */
+    public void testShortBean() {
+        final String FOO = "I am foo!";
+        final int BAR = 42;
+        ShortBean bean;
+
+        bean = new ShortBean();
+        bean.setFoo( FOO );
+        bean.setBar( BAR );
+        bean.setQuack( true );
+        assertEquals( FOO, bean.getFoo() );
+        assertEquals( BAR, bean.getBar() );
+        assertTrue( bean.isQuack() );
+    }
+
     /**
      * Rigourous Test :-)
      */
