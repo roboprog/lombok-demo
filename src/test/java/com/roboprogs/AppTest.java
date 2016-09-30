@@ -32,6 +32,7 @@ public class AppTest
     public void testShortBean() {
         final String FOO = "I am foo!";
         final int BAR = 42;
+        final String LOG_STR = "ShortBean(foo=I am foo!, bar=42, quack=true)";
         ShortBean bean;
 
         bean = new ShortBean();
@@ -41,6 +42,7 @@ public class AppTest
         assertEquals( FOO, bean.getFoo() );
         assertEquals( BAR, bean.getBar() );
         assertTrue( bean.isQuack() );
+        assertEquals( LOG_STR, bean.toString() );
     }
 
     /**
