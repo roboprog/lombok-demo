@@ -18,8 +18,8 @@ public class AppTest
     private static final int BAR = 42;
 
     /** test value for "toString()" with typical bean configuration */
-    private static final String LOG_STR =
-            "ShortBean(foo=I am foo!, bar=42, quack=true)";
+    private static final String LOG_STR_CONTENT =
+            "(foo=I am foo!, bar=42, quack=true)";
 
     /**
      * Create the test case
@@ -47,15 +47,27 @@ public class AppTest
         bean.setFoo( FOO );
         bean.setBar( BAR );
         bean.setQuack( true );
-        beanieAssertionFixture( bean );
+        beanieAssertionFixture( "ShortBean" + LOG_STR_CONTENT, bean );
+    }
+
+    /** try out the even better bean that Lombok generated */
+    public void testShorterBean() {
+        ShorterBean bean;
+
+        bean = new ShorterBean( "change me", BAR, true );
+        bean.setFoo( FOO );
+        beanieAssertionFixture( "ShorterBean" + LOG_STR_CONTENT, bean );
     }
 
     /** verify that the given bean implementation has expected content */
-    private void beanieAssertionFixture( Beanie bean ) {
+    private void beanieAssertionFixture(
+        String logStr,
+        Beanie bean
+    ) {
         assertEquals( FOO, bean.getFoo() );
         assertEquals( BAR, bean.getBar() );
         assertTrue( bean.isQuack() );
-        assertEquals( LOG_STR, bean.toString() );
+        assertEquals( logStr, bean.toString() );
     }
 
     /**
