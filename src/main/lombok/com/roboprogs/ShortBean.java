@@ -6,7 +6,8 @@ import lombok.ToString;
 
 /** a container of nonsense (but a short one) */
 @ToString()
-public class ShortBean {
+public class ShortBean
+        implements Beanie {
 
     @Getter @Setter
     private String foo;

@@ -10,6 +10,17 @@ import junit.framework.TestSuite;
 public class AppTest 
     extends TestCase
 {
+
+    /** sample "foo" value */
+    private static final String FOO = "I am foo!";
+
+    /** sample "bar" value */
+    private static final int BAR = 42;
+
+    /** test value for "toString()" with typical bean configuration */
+    private static final String LOG_STR =
+            "ShortBean(foo=I am foo!, bar=42, quack=true)";
+
     /**
      * Create the test case
      *
@@ -30,15 +41,17 @@ public class AppTest
 
     /** try out the bean that Lombok generated */
     public void testShortBean() {
-        final String FOO = "I am foo!";
-        final int BAR = 42;
-        final String LOG_STR = "ShortBean(foo=I am foo!, bar=42, quack=true)";
         ShortBean bean;
 
         bean = new ShortBean();
         bean.setFoo( FOO );
         bean.setBar( BAR );
         bean.setQuack( true );
+        beanieAssertionFixture( bean );
+    }
+
+    /** verify that the given bean implementation has expected content */
+    private void beanieAssertionFixture( Beanie bean ) {
         assertEquals( FOO, bean.getFoo() );
         assertEquals( BAR, bean.getBar() );
         assertTrue( bean.isQuack() );
