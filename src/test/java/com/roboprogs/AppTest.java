@@ -59,6 +59,15 @@ public class AppTest
         beanieAssertionFixture( "ShorterBean" + LOG_STR_CONTENT, bean );
     }
 
+    /** try out the immutable value bean that Lombok generated */
+    public void testConstBean() {
+        ConstBean bean;
+
+        bean = new ConstBean( FOO, BAR, true );
+        // bean.setFoo( FOO ); - not defined!
+        beanieAssertionFixture( "ConstBean" + LOG_STR_CONTENT, bean );
+    }
+
     /** verify that the given bean implementation has expected content */
     private void beanieAssertionFixture(
         String logStr,
