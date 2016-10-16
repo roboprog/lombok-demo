@@ -68,6 +68,69 @@ public class AppTest
         beanieAssertionFixture( "ConstBean" + LOG_STR_CONTENT, bean );
     }
 
+    /** try out immutable value bean that allows alternate clones */
+    public void testClonerBean() {
+        ClonerBean bean, fooBean, barBean, quackBean;
+
+        bean = new ClonerBean( FOO, BAR, true );
+        beanieAssertionFixture( "ClonerBean" + LOG_STR_CONTENT, bean );
+
+        fooBean = bean.withFoo( "FUBAR!" );
+        assertTrue(
+            "Beans should be different instances",
+            ( fooBean != bean )
+        );
+        assertFalse(
+            "Foo property should be different" ,
+            fooBean.getFoo().equals( bean.getFoo() )
+        );
+        assertEquals(
+            "Bar property should match" ,
+            fooBean.getBar(), bean.getBar()
+        );
+        assertEquals(
+            "Quack property should match" ,
+            fooBean.isQuack(), bean.isQuack()
+        );
+
+        barBean = bean.withBar( bean.getBar() + 1 );
+        assertTrue(
+            "Beans should be different instances",
+            ( barBean != bean )
+        );
+        assertEquals(
+            "Foo property should match" ,
+            barBean.getFoo(), bean.getFoo()
+        );
+        assertFalse(
+            "Bar property should be different" ,
+            ( barBean.getBar() == bean.getBar() )
+        );
+        assertEquals(
+            "Quack property should match" ,
+            barBean.isQuack(), bean.isQuack()
+        );
+
+        quackBean = bean.withQuack( ! bean.isQuack() );
+        assertTrue(
+            "Beans should be different instances",
+            ( quackBean != bean )
+        );
+        assertEquals(
+            "Foo property should match" ,
+            quackBean.getFoo(), bean.getFoo()
+        );
+        assertEquals(
+            "Bar property should match" ,
+            quackBean.getBar(), bean.getBar()
+        );
+        assertFalse(
+            "Quack property should be different" ,
+            ( quackBean.isQuack() == bean.isQuack() )
+        );
+
+    }
+
     /** verify that the given bean implementation has expected content */
     private void beanieAssertionFixture(
         String logStr,
