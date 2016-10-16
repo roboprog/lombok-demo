@@ -131,6 +131,21 @@ public class AppTest
 
     }
 
+    /** try out the (bean) builder that Lombok generated */
+    public void testBuilderBean() {
+        BuilderBean.BuilderBeanBuilder builder;
+        Beanie bean;
+
+        builder = BuilderBean.builder();
+        // ...
+        builder.foo( FOO );
+        builder.bar( BAR );
+        builder.quack( true );
+        // ...
+        bean = builder.build();
+        beanieAssertionFixture( "BuilderBean" + LOG_STR_CONTENT, bean );
+    }
+
     /** verify that the given bean implementation has expected content */
     private void beanieAssertionFixture(
         String logStr,
